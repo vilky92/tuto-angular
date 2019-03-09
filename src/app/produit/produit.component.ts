@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router'
 
 import { ProduitService } from './produit.service'
 import { Produit } from '../shared/produit';
@@ -21,7 +22,7 @@ export class ProduitComponent implements OnInit {
   selectedProduit: Produit;
 
 
-  constructor(private produitService: ProduitService, private fb: FormBuilder) {
+  constructor(private produitService: ProduitService, private fb: FormBuilder, private route: ActivatedRoute) {
   this.createForm();
    }
 
@@ -30,7 +31,8 @@ export class ProduitComponent implements OnInit {
     // console.log(this.prod);
     // this.produits = this.produitService.getProduits();
     this.initProduit();
-    this.loadProduits();
+    //this.loadProduits(); On remplace par la ligne suivante (un resolve soit une promesse) soit on a le get soit une réponse précise
+    this.produits = this.route.snapshot.data.produits;
   }
 
   createForm() {
@@ -91,12 +93,13 @@ export class ProduitComponent implements OnInit {
 
   deleteProduit(){
     console.log("je suis delete")
-    const ref = this.selectedProduit.ref;
-    this.produitService.deleteProduit(ref).subscribe(
+    const id = this.selectedProduit.id;
+    console.log(id);
+    this.produitService.deleteProduit(id).subscribe(
       res => {
         console.log("ici res "+res);
         console.log("ici loadproduit "+this.loadProduits)
-        console.log("ici ref "+ref)
+        console.log("ici ref "+id)
         //je reset mon selectProduit
         this.selectedProduit = new Produit();
         //ici mon getter après avoir fait le post pour avoir mon dashboard mis à jour

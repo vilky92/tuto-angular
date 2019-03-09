@@ -25,8 +25,8 @@ export class ProduitService{
         return this.http.put(API_URLS.PRODUITS_URL, produit);
     }
 
-    deleteProduit(ref: String): Observable<any>{
-        return this.http.delete(API_URLS.PRODUITS_URL+ `${ref}`);
+    deleteProduit(id: number): Observable<any>{
+        return this.http.delete(API_URLS.PRODUITS_URL+ `${id}`);
     }//`${this.heroesUrl}/${id}`
     //API_URLS.PRODUITS_URL+ `/${ref}`
     //`${API_URLS.PRODUITS_URL}/${ref}`

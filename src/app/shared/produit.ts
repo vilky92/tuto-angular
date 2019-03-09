@@ -1,8 +1,10 @@
 
 export class Produit{
-    constructor(public ref?: string,
+    constructor(public id?: number,
+                public ref?: string,
                 public quantite?: number,
-                public prixUnitaire?: number) {
+                public prixUnitaire?: number,
+                ) {
 
     }
 }
